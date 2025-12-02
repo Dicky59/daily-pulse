@@ -2,13 +2,8 @@ package com.dicky59.dailypulse.articles.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dicky59.dailypulse.articles.data.ArticleData
 import com.dicky59.dailypulse.articles.data.ArticleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,7 +29,7 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Articl
 
       try {
         val articlesData = articleRepository.getArticles()
-        val articles = articlesData.map { articleData -> articleData.toArticleWithFormattedDate() }
+        val articles = articlesData.map { Article.mapArticle(it) }
         _uiState.value = ArticleUiState.Success(articles)
         logState("Success", articles)
       } catch (e: Exception) {
@@ -43,34 +38,6 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Articl
         logState("Error", userFriendlyMessage)
         Timber.e(e, "Error loading articles: ${e.message}")
       }
-    }
-  }
-
-  private fun ArticleData.toArticleWithFormattedDate(): Article {
-    return Article(
-            title = title,
-            description = description ?: "",
-            url = url,
-            imageUrl = imageUrl ?: "",
-            date = formatDate(date)
-    )
-  }
-
-  private fun formatDate(dateString: String): String {
-    return try {
-      val articleDate = Instant.parse(dateString).atZone(ZoneId.systemDefault()).toLocalDate()
-
-      val today = LocalDate.now()
-      val daysDifference = ChronoUnit.DAYS.between(articleDate, today).toInt()
-
-      when {
-        daysDifference == 0 -> "Today"
-        daysDifference == 1 -> "Yesterday"
-        else -> "$daysDifference days ago"
-      }
-    } catch (e: Exception) {
-      Timber.e(e, "Error parsing date: $dateString")
-      dateString
     }
   }
 
