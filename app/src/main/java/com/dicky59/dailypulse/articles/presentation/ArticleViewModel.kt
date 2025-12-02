@@ -34,10 +34,10 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Articl
         _uiState.value = ArticleUiState.Success(articles)
         logState("Success", articles)
       } catch (e: Exception) {
-        val errorMessage = e.message ?: "Unknown error occurred"
-        _uiState.value = ArticleUiState.Error(errorMessage)
-        logState("Error", errorMessage)
-        Timber.e(e, "Error loading articles")
+        val userFriendlyMessage = "Something went wrong, please try again later"
+        _uiState.value = ArticleUiState.Error(userFriendlyMessage)
+        logState("Error", userFriendlyMessage)
+        Timber.e(e, "Error loading articles: ${e.message}")
       }
     }
   }
