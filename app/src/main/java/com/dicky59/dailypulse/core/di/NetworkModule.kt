@@ -1,6 +1,7 @@
 package com.dicky59.dailypulse.core.di
 
 import com.dicky59.dailypulse.articles.data.ArticleApi
+import com.dicky59.dailypulse.sources.data.SourceApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -51,4 +52,8 @@ object NetworkModule {
   @Provides
   @Singleton
   fun provideArticleApi(retrofit: Retrofit): ArticleApi = retrofit.create(ArticleApi::class.java)
+
+  @Provides
+  @Singleton
+  fun provideSourceApi(retrofit: Retrofit): SourceApi = retrofit.create(SourceApi::class.java)
 }
