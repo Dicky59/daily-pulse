@@ -16,39 +16,42 @@ import coil.compose.AsyncImage
 import com.dicky59.dailypulse.articles.presentation.Article
 
 @Composable
-fun ArticleItem(article: Article, modifier: Modifier = Modifier) {
+fun ArticleItem(
+  article: Article,
+  modifier: Modifier = Modifier,
+) {
   Card(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp)) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
       if (article.imageUrl.isNotEmpty()) {
         AsyncImage(
-                model = article.imageUrl,
-                contentDescription = article.title,
-                modifier = Modifier.fillMaxWidth().height(200.dp),
-                contentScale = ContentScale.Crop
+          model = article.imageUrl,
+          contentDescription = article.title,
+          modifier = Modifier.fillMaxWidth().height(200.dp),
+          contentScale = ContentScale.Crop,
         )
       }
 
       Text(
-              text = article.title,
-              style = MaterialTheme.typography.titleLarge,
-              fontWeight = FontWeight.Bold,
-              modifier = Modifier.padding(top = 12.dp, bottom = 8.dp)
+        text = article.title,
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
       )
 
       if (article.description.isNotEmpty()) {
         Text(
-                text = article.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
+          text = article.description,
+          style = MaterialTheme.typography.bodyMedium,
+          modifier = Modifier.padding(bottom = 8.dp),
         )
       }
 
       Text(
-              text = article.date,
-              style = MaterialTheme.typography.bodySmall,
-              color = MaterialTheme.colorScheme.onSurfaceVariant,
-              modifier = Modifier.fillMaxWidth(),
-              textAlign = androidx.compose.ui.text.style.TextAlign.End
+        text = article.date,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = androidx.compose.ui.text.style.TextAlign.End,
       )
     }
   }
