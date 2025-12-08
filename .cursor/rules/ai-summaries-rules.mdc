@@ -1,0 +1,33 @@
+---
+alwaysApply: false
+---
+
+# AI Summaries Feature Rules
+
+## Overview
+
+The app will include an **AI-driven article summarization feature**.
+The goal is simplicity, keeping everything inside the existing **feature-based architecture**.
+
+This feature must:
+
+- Summarize article content using an external AI API (e.g. OpenAI or similar).
+- Display the summary in the UI **inside the existing Articles feature**.
+- Integrate cleanly with MVVM.
+- Avoid any new domain layer, use case layer, or over-engineering.
+
+## Architectural Principles
+
+- All summary-related code stays _within the Articles feature_.
+- Do **not** create a separate “AI core” module unless explicitly requested.
+- Do **not** introduce:
+  - Domain layer
+  - Use cases
+  - Base classes
+  - Interfaces for repositories
+
+Keep it consistent with the rest of the project.
+
+## Package Structure
+
+Place new files inside the Articles feature:

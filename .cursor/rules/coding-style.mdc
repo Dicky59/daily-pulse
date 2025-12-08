@@ -1,0 +1,67 @@
+---
+alwaysApply: true
+---
+
+# Coding Style Rules
+
+## General Kotlin & Android Style
+
+- Follow official **Kotlin Coding Conventions**.
+- Use **camelCase** for variables and functions.
+- Use **PascalCase** for classes, objects, and composables.
+- Avoid overly clever one-liners; prefer readability.
+- Keep functions small and focused.
+
+Examples:
+
+- `class ArticleViewModel`
+- `data class Article`
+- `fun fetchArticles()`
+- `val articleTitle`
+
+## File & Class Organization
+
+- One top-level class per file when possible.
+- File names should match the main class/composable:
+  - `ArticleScreen.kt` → contains `@Composable fun ArticleScreen(...)`
+  - `ArticleViewModel.kt` → contains `class ArticleViewModel(...)`
+
+Order inside a file:
+
+1. Imports
+2. Class declaration
+3. Constructor / properties
+4. Public functions
+5. Private helper functions
+6. Companion object (if needed)
+
+## Imports
+
+- No wildcard imports (`import foo.*`).
+- Keep imports clean; remove unused imports.
+- Group imports by:
+  1. Kotlin / Java standard library
+  2. AndroidX / Jetpack
+  3. Third-party libraries (Retrofit, Moshi, etc.)
+  4. Project packages
+
+## Naming Conventions
+
+### ViewModels
+
+- Name: `<Feature>ViewModel`
+  - Example: `ArticleViewModel`, `SourceViewModel`
+
+### UI State
+
+- Name: `<Feature>UiState`
+  - Example: `ArticleUiState`, `SourcesUiState`
+- Prefer immutable data classes with `copy`:
+
+```kotlin
+data class ArticleUiState(
+    val isLoading: Boolean = false,
+    val articles: List<Article> = emptyList(),
+    val errorMessage: String? = null
+)
+```

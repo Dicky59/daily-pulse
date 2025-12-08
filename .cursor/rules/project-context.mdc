@@ -1,0 +1,56 @@
+---
+alwaysApply: true
+---
+
+# Project Context (Current State)
+
+## Feature: Articles
+
+The Articles feature is fully implemented and includes:
+
+### Data Layer
+
+- `ArticleData`
+- `ArticleApi` (Retrofit)
+- `ArticleRepository`
+
+### Presentation Layer
+
+- `Article`
+- `ArticleUiState`
+- `ArticleViewModel`
+- Date formatting moved to `Article.mapArticle()`
+
+### UI Layer
+
+- `ArticleScreen`
+- Coil image loading
+- Uses `StateFlow` for state updates
+
+### Build Setup
+
+- API key is stored in `local.properties`
+- BuildConfig reads values from properties
+- Retrofit provided via `NetworkModule`
+- OkHttp logging enabled
+
+### Application Setup
+
+- Timber initialized in `DailyPulseApplication`
+- `@AndroidEntryPoint` used correctly in `MainActivity`
+- Navigation Compose shows `ArticleScreen`
+
+## Known Issues Already Solved
+
+- BuildConfig cannot be used inside Retrofit annotations → use @Query instead
+- Coil requires `coil-compose` dependency
+- Hilt modules configured correctly
+- Project works with feature-based packaging under:
+  `java/com/dicky59/dailypulse/`
+
+## Current Status
+
+- App builds and runs
+- Articles list loads from NewsAPI `/top-headlines`
+- Error handling shows a friendly user message
+- Architecture follows MVVM

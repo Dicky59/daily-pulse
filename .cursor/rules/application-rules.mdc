@@ -1,0 +1,129 @@
+---
+alwaysApply: false
+---
+
+# Application Rules
+
+## Project Overview
+
+You are a senior Android developer.
+We are building an MVP native Android application using a simple, scalable feature-based architecture.
+
+Features:
+
+- Articles: Fetch and display articles from an API.
+- Sources: Fetch and display a list of sources.
+- AI Summaries: Use AI to summarize articles.
+- The architecture must support adding more features later without complexity.
+
+## Architectural Principles
+
+- **Simplicity first**
+- **MVVM**
+- **Feature-based top-level packaging**
+- **No Domain layer**
+- **No Use Cases unless explicitly requested**
+- **No interfaces for repositories**
+- **No base classes**
+- **Single-Activity Compose app**
+- **Hilt Dependency Injection**
+- **Coroutines + StateFlow**
+- **Separation of concerns**
+- **Testability & maintainability**
+
+## Package Structure
+
+The top-level structure must look like this:
+
+```
+app
+├── articles/
+│   ├── ui/
+│   │   └── ArticleScreen.kt
+│   ├── presentation/
+│   │   ├── ArticleViewModel.kt
+│   │   ├── ArticleUiState.kt
+│   │   └── Article.kt
+│   └── data/
+│       ├── ArticleApi.kt
+│       ├── ArticleData.kt
+│       └── ArticleRepository.kt
+├── sources/
+│   ├── ui/
+│   │   └── SourceScreen.kt
+│   ├── presentation/
+│   │   ├── SourceViewModel.kt
+│   │   ├── SourcesUiState.kt
+│   │   └── Source.kt
+│   └── data/
+│       ├── SourceApi.kt
+│       ├── SourceData.kt
+│       └── SourceRepository.kt
+```
+
+## UI Layer Rules
+
+- Jetpack Compose + Material 3
+- Composables contain no business logic
+- State is provided via `StateFlow` from ViewModel
+- Single Activity with Navigation Compose
+- Use Coil for images
+
+## Presentation Layer Rules
+
+- ViewModels contain UI logic
+- ViewModels expose immutable `StateFlow`
+- UI State classes represent screen states
+- Presentation models mirror what UI needs (e.g., `Article`)
+- No Android context inside ViewModels except via `SavedStateHandle` or injected dependencies
+
+## Data Layer Rules
+
+- Repository implementation only (no interface)
+- Single source of truth
+- Retrofit for API calls
+- Moshi for JSON
+- OkHttp + logging interceptor
+- Data models (e.g. `ArticleData`)
+- Remote data sources only — **no local storage, no Room**
+
+## Dependency Injection Rules
+
+- Hilt for DI
+- Use constructor injection whenever possible
+- Provide Retrofit, OkHttp, APIs in a `NetworkModule`
+- ViewModels injected using `hiltViewModel()`
+
+## Technology Stack
+
+### Generic
+
+- Hilt
+- Coroutines
+- Timber
+
+### UI
+
+- Jetpack Compose
+- Material3
+- Coil
+- Navigation Compose
+- Hilt Navigation Compose
+- StateFlow
+
+### Data
+
+- Retrofit
+- Moshi
+- Moshi Kotlin Codegen
+- OkHttp
+- OkHttp Logging Interceptor
+
+## Build Dependencies Rule
+
+Whenever creating or modifying Gradle files:
+
+- Always use **the latest compatible versions**
+- Do **not** use deprecated Compose, Kotlin, Hilt or Retrofit versions
+- Ensure Moshi codegen is enabled
+- Ensure Hilt and Kotlin kapt dependencies are aligned
