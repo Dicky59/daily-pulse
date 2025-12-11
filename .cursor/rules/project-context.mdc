@@ -11,8 +11,10 @@ The Articles feature is fully implemented and includes:
 ### Data Layer
 
 - `ArticleData`
-- `ArticleApi` (Retrofit)
-- `ArticleRepository`
+- `ArticleApi` (Retrofit) - uses `/everything` endpoint
+- `ArticleRepository` - `@Singleton`, supports optional query parameter
+- Fetches worldwide English news by default (language: "en")
+- Supports keyword search via query parameter (default: "news")
 
 ### Presentation Layer
 
@@ -27,18 +29,43 @@ The Articles feature is fully implemented and includes:
 - Coil image loading
 - Uses `StateFlow` for state updates
 
+## Feature: Sources
+
+The Sources feature is fully implemented and includes:
+
+### Data Layer
+
+- `SourceData`
+- `SourceApi` (Retrofit) - uses `/top-headlines/sources` endpoint
+- `SourceRepository`
+- Fetches worldwide English sources (language: "en")
+
+### Presentation Layer
+
+- `Source`
+- `SourcesUiState`
+- `SourceViewModel`
+
+### UI Layer
+
+- `SourceScreen`
+- `SourceItem` - displays source name and description
+- Uses `StateFlow` for state updates
+
 ### Build Setup
 
 - API key is stored in `local.properties`
 - BuildConfig reads values from properties
 - Retrofit provided via `NetworkModule`
 - OkHttp logging enabled
+- Both `ArticleApi` and `SourceApi` provided in `NetworkModule`
 
 ### Application Setup
 
 - Timber initialized in `DailyPulseApplication`
 - `@AndroidEntryPoint` used correctly in `MainActivity`
-- Navigation Compose shows `ArticleScreen`
+- Navigation Compose shows both `ArticleScreen` and `SourceScreen`
+- Bottom navigation bar with Articles and Sources tabs
 
 ## Known Issues Already Solved
 
@@ -51,6 +78,8 @@ The Articles feature is fully implemented and includes:
 ## Current Status
 
 - App builds and runs
-- Articles list loads from NewsAPI `/top-headlines`
+- Articles list loads from NewsAPI `/everything` endpoint (worldwide English news)
+- Sources list loads from NewsAPI `/top-headlines/sources` endpoint (worldwide English sources)
 - Error handling shows a friendly user message
 - Architecture follows MVVM
+- Both features support worldwide content in English
