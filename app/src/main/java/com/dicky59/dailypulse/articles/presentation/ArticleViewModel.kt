@@ -2,6 +2,7 @@ package com.dicky59.dailypulse.articles.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dicky59.dailypulse.ai.data.AiRepository
 import com.dicky59.dailypulse.articles.data.ArticleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ class ArticleViewModel
   @Inject
   constructor(
     private val articleRepository: ArticleRepository,
+    private val aiRepository: AiRepository,
   ) : ViewModel() {
     private val _uiState = MutableStateFlow<ArticleUiState>(ArticleUiState.Loading)
     val uiState: StateFlow<ArticleUiState> = _uiState.asStateFlow()
@@ -40,6 +42,33 @@ class ArticleViewModel
           logState("Error", userFriendlyMessage)
           Timber.e(e, "Error loading articles: ${e.message}")
         }
+      }
+    }
+
+    fun getAiSummary() {
+      viewModelScope.launch {
+        val currentState = _uiState.value
+        if (currentState !is ArticleUiState.Success) {
+          return@launch
+        }
+
+        try {
+          val articleTitles = currentState.articles.map { it.title }
+          val aiSummaryData = aiRepository.getArticleSummary(articleTitles)
+          val aiSummary = AiSummary.mapAiSummary(aiSummaryData)
+
+          _uiState.value = currentState.copy(aiSummary = aiSummary)
+          Timber.d("ArticleUiState: AI Summary loaded - Sentiment: ${aiSummary.sentiment}")
+        } catch (e: Exception) {
+          Timber.e(e, "Error loading AI summary: ${e.message}")
+        }
+      }
+    }
+
+    fun dismissAiSummary() {
+      val currentState = _uiState.value
+      if (currentState is ArticleUiState.Success) {
+        _uiState.value = currentState.copy(aiSummary = null)
       }
     }
 

@@ -5,6 +5,7 @@ sealed class ArticleUiState {
 
   data class Success(
     val articles: List<Article>,
+    val aiSummary: AiSummary? = null,
   ) : ArticleUiState()
 
   data class Error(

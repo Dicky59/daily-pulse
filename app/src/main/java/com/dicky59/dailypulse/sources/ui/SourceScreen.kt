@@ -25,10 +25,10 @@ fun SourceScreen(viewModel: SourceViewModel = hiltViewModel()) {
 
   Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
     Text(
-            text = "Sources",
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp),
+      text = "Sources",
+      style = MaterialTheme.typography.headlineLarge,
+      fontWeight = FontWeight.Bold,
+      modifier = Modifier.padding(bottom = 16.dp),
     )
 
     when (val state = uiState.value) {
@@ -40,9 +40,9 @@ fun SourceScreen(viewModel: SourceViewModel = hiltViewModel()) {
       is SourcesUiState.Error -> {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
           Text(
-                  text = state.message,
-                  style = MaterialTheme.typography.bodyLarge,
-                  color = MaterialTheme.colorScheme.error,
+            text = state.message,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.error,
           )
         }
       }

@@ -4,16 +4,16 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ArticleApi {
-  @GET("everything")
+  @GET("top-headlines")
   suspend fun getArticles(
-          @Query("q") query: String = "news",
-          @Query("language") language: String = "en",
-          @Query("apiKey") apiKey: String,
+    @Query("country") country: String = "us",
+    @Query("category") category: String = "business",
+    @Query("apiKey") apiKey: String,
   ): ArticlesResponse
 }
 
 data class ArticlesResponse(
-        val status: String,
-        val totalResults: Int,
-        val articles: List<ArticleData>,
+  val status: String,
+  val totalResults: Int,
+  val articles: List<ArticleData>,
 )

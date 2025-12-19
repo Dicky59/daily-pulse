@@ -1,4 +1,6 @@
 package com.dicky59.dailypulse.ai.data
 
-class AISummaryData {
-}
+data class AiSummaryData(
+  val summary: String,
+  val sentiment: String,
+)

@@ -26,7 +26,7 @@ fun MainNavigation() {
   val navController = rememberNavController()
   val navBackStackEntry by navController.currentBackStackEntryAsState()
   val currentDestination = navBackStackEntry?.destination
-  
+
   Scaffold(
     bottomBar = {
       NavigationBar {

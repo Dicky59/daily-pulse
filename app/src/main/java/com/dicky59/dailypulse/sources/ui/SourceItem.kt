@@ -14,21 +14,21 @@ import com.dicky59.dailypulse.sources.presentation.Source
 
 @Composable
 fun SourceItem(
-        source: Source,
-        modifier: Modifier = Modifier,
+  source: Source,
+  modifier: Modifier = Modifier,
 ) {
   Card(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp)) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
       Text(
-              text = source.name,
-              style = MaterialTheme.typography.titleLarge,
-              fontWeight = FontWeight.Bold,
-              modifier = Modifier.padding(bottom = 8.dp),
+        text = source.name,
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(bottom = 8.dp),
       )
 
       Text(
-              text = source.description,
-              style = MaterialTheme.typography.bodyMedium,
+        text = source.description,
+        style = MaterialTheme.typography.bodyMedium,
       )
     }
   }

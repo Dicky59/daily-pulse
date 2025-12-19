@@ -1,7 +1,6 @@
 package com.dicky59.dailypulse.sources.data
 
 import com.dicky59.dailypulse.sources.presentation.Source
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
